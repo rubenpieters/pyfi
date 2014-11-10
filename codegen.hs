@@ -58,7 +58,6 @@ typeclassesGen :: [ArgType] -> String
 typeclassesGen sig = let components = catMaybes (typeclassesGen' sig) in
     case components of
       [] -> ""
-      xs -> "(" ++ intercalate ", " xs ++ ") => "
       xs -> concat [ "("
                    , intercalate ", " xs
                    ,  ") => " 
