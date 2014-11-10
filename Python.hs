@@ -58,6 +58,7 @@ import Data.Maybe (fromJust)
 import Data.List (elemIndex)
 import Control.Exception (Exception, throw)
 import Data.Typeable
+import Data.Monoid (mconcat)
 
 modules :: IORef (Map.Map String RawPyObject)
 modules = unsafePerformIO $ newIORef (Map.empty)
@@ -118,7 +119,7 @@ checkError funcdef = do
   else do
     s <- peekCString cs
     free cs
-    throw $ parseException $ s ++ "\n----------------------------------------------------------------------\n" ++ funcdef
+    throw . parseException $ mconcat[s, "\n", take 70 $ cycle "-", "\n", funcdef]
 
 initialize :: IO ()
 initialize = do
@@ -163,13 +164,13 @@ hash contents = show . md5 $ pack contents
 
 mydecode :: (FromJSON a) => String -> Maybe a
 mydecode s = do
-    x <- (decode . pack . (\x -> "[" ++ x ++ "]") ) s
-    return $ head x
+    x <- decode . pack . (\x -> "[" ++ x ++ "]") $ s
+    return $ head x -- This code is dangerous. prelude's `head` isnt safe
 
 
 toPyObject :: (ToJSON a) => a -> IO (PyObject b)
 toPyObject x = do
-    y <- return (unpack . encode $ x)
+    y <- return . unpack . encode $ x
     p <- withCString "s" (\cs -> 
            withCString y (\cy -> 
              py_BuildValueString cs cy) )
