@@ -34,7 +34,7 @@ First, let's see an example
       square :: Int -> IO Int
       square = defVV "from numpy import square as export"
       
-  What's imporant is that the python code defines a function `export` of type `Int -> IO Int`. If the python returns value that cannot be interpreted as an `Int`, json-python will raise a haskell exception. Of course, we could have also defined a function of type `String -> IO String`:
+  What's imporant is that the python code defines a function `export` of type `Int -> IO Int`. If the python returns a value that cannot be interpreted as an `Int`, json-python will raise a haskell exception. Any exceptions raised by json-python can be handled with `Control.Exception.catch`. Of course, we could have also defined a function of type `String -> IO String`:
   
       guess_type :: String -> IO String
       guess_type = defVV "from mimetypes import guess_type; export = lambda x: guess_type(x)[0]"
