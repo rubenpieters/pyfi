@@ -33,7 +33,13 @@ fromPyObjectGen' sig = dispatcher sig (const Nothing, Just ("    b <- fromPyObje
 
 
 defCallGen :: [ArgType] -> String
-defCallGen sig = "    fr <- def" ++ show (length sig) ++ " s \"" ++ (concat $ map show sig) ++ "\" " ++ intercalate " " ["x" ++ show n | n <- [1..(length sig - 1)]]
+defCallGen sig = concat [ "    fr <- def"
+                        , show (length sig)
+                        , " s \""
+                        , concatMap show sig
+                        , "\" "
+                        , intercalate " " ["x" ++ show n | n <- [1..(length sig - 1)]]
+                        ]
 
 typeargsGen :: [ArgType] -> String
 typeargsGen sig = let components = typeargsGen' sig in
@@ -52,7 +58,11 @@ typeclassesGen :: [ArgType] -> String
 typeclassesGen sig = let components = catMaybes (typeclassesGen' sig) in
     case components of
       [] -> ""
-      xs -> "(" ++ intercalate ", " xs ++ ") => "
+      xs -> concat [ "("
+                   , intercalate ", " xs
+                   ,  ") => " 
+                   ]
+
 
 typeclassesGen' :: [ArgType] -> [Maybe String]
 typeclassesGen' sig = dispatcher sig (f1arg, f1res) (f2arg, f2res) where
