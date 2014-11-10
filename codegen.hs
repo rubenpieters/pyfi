@@ -3,12 +3,7 @@ import Data.Maybe (catMaybes)
 import Data.List (intercalate)
 import Control.Monad (replicateM)
 
--- defVOV :: (ToJSON a1, FromJSON b) => String -> a1 -> (PyObject a2) -> IO b
--- defVOV s input1 x2 = do
---     x1 <- toPyObject input1
---     fr <- def3 s "VOV" x1 x2
---     b <- fromPyObject fr
---     return b
+-- Template haskell doesn't work well when you have a nontrivial build process.
 
 data ArgType = O | V deriving (Eq, Show)
 
