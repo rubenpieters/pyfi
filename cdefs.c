@@ -41,13 +41,8 @@ PyObject* getObjectInModule(const char* objectName, const char* moduleName)
 
 char* checkError() {
   if ( PyErr_Occurred() ) {
-      //PyErr_Print();//PyErr_Clear();
-    /* PyRun_SimpleString("traceback.format_exc()"); */
     PyObject *exc_typ = NULL, *exc_val = NULL, *exc_tb = NULL;
     PyErr_Fetch( &exc_typ, &exc_val, &exc_tb);
-    /* print_object(exc_val); */
-    /* printf("\n"); */
-    /* print_object(exc_tb); */
     PyObject *exc_typ_string = PyObject_Str(exc_typ);
     PyObject *exc_val_string = PyObject_Str(exc_val);
     char *exc_typ_tmp = PyString_AsString(exc_typ_string);
@@ -83,7 +78,6 @@ void execInModule(const char* payload, const char* moduleName) {
                                          NULL);
     
     if ( PyErr_Occurred() ) {PyErr_Print();PyErr_Clear();}
-    /* if ( PyErr_Occurred() ) {PyErr_Clear();} */
     return;
 }
 
@@ -97,14 +91,3 @@ typedef funcType * pFuncType;
 pFuncType gimmeFunc(int dummy) {
     return &finalizer;
 }
-
-
-/*int main() {*/
-    /*Py_Initialize();*/
-    /*[> PyRun_SimpleString("x = 3"); <]*/
-    /*execInModule("def x(y):\n    print(y)\n    import traceback\n    return 0", "foo");*/
-    /*PyObject *x = getObjectInModule("x", "foo");*/
-    /*PyObject *result = PyObject_CallObject(x, Py_BuildValue("(i)", 5));*/
-    /*print_object(result);*/
-    /*printf("\n");*/
-/*}*/
