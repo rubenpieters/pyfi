@@ -4,7 +4,7 @@
     
 <h2>Purpose</h2>
 
-pyfi lets you call python from haskell by giving a high level interface for wrapping python functions. Hopefully this will let people interoperate between haskell and python with much less friction than using python's C API. The library uses json serialization for basic types and pointers for more complex python objects, making it great for either wrapping your exiting python projects with haskell or using a python library from a haskell script.
+pyfi (PYthon Function Interface) lets you call python from haskell by giving a high level interface for wrapping python functions. Hopefully this will let people interoperate between haskell and python with much less friction than using python's C API. The library uses json serialization for basic types and pointers for more complex python objects, making it great for either wrapping your exiting python projects with haskell or using a python library from a haskell script.
 
 <h2>Tutorial</h2>
 First, let's see an example
