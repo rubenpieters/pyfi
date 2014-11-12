@@ -75,7 +75,12 @@ funcname :: [ArgType] -> String
 funcname sig = "def" ++ concat (map show sig)
 
 typesigGen :: [ArgType] -> String
-typesigGen sig = funcname sig ++ " :: " ++ typeclassesGen sig ++ "String -> " ++ typeargsGen sig
+typesigGen sig = concat [ funcname sig
+                        , " :: " 
+                        , typeclassesGen sig
+                        , "String -> "
+                        , typeargsGen sig 
+                        ]
 
 funcsigGen :: [ArgType] -> String
 funcsigGen sig = funcname sig ++ " s " ++ args ++ " = do" where
@@ -84,7 +89,13 @@ funcsigGen sig = funcname sig ++ " s " ++ args ++ " = do" where
 
 codeGen :: [ArgType] -> String
 codeGen sig = runIdentity $ do
-    return $ intercalate "\n" $ filter ((>0) . length) [typesigGen sig, funcsigGen sig, toPyObjectGen sig, defCallGen sig, fromPyObjectGen sig]
+    return . intercalate "\n" . filter ((>0) . length) $ map (flip ($) sig)
+        [ typesigGen 
+        , funcsigGen 
+        , toPyObjectGen 
+        , defCallGen 
+        , fromPyObjectGen 
+        ]
 
 main = do
     x <- return $ concat $ map (flip replicateM "OV") [1..5]
