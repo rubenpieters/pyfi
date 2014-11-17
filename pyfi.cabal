@@ -5,7 +5,7 @@ name:                pyfi
 version:             0.4.0.3
 synopsis:            Call python inline from haskell
 description:         PYthon Function Interface: Wrap python functions with haskell.
-homepage:            http://github.com/Russell91/json-python
+homepage:            http://github.com/Russell91/pyfi
 license:             MIT
 license-file:        LICENSE
 author:              Russell Stewart
