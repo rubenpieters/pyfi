@@ -84,4 +84,4 @@ First, let's see an example
   
   By now, you may have noticed a pattern in the naming convention of the `def` functions. There is one letter for each of the arguments and for the return type. A `V` indicates that the type will be passed as a json value. An `O` indicates that the type will be passed as a pointer to a python object. You can use any combination of `O` and `V` describing python functions with up to three arguments. So `defV`, `defVOOV`, and `defOOVV` are all available to you after you write `import Python`.
   
-  pyfi is still very much in the alpha stage. The technology for catching python exceptions and bubbling them up into haskell exceptions isn't finalized, and it hasn't been tested for thread safety with concurrent IO. Nonetheless, I'm really excited to see what people can do with it.
+  The technology for catching python exceptions and bubbling them up into haskell exceptions isn't finalized, and it hasn't been tested for thread safety with concurrent IO. Nonetheless, I'm really excited to see what people can do with it.
